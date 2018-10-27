@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+      
+    
+    
+      
+    
+  <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+  <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-flash.min.css" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Android,支付,微信," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="葛布斯" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="集成步骤先贴上官方文档的集成步骤资源链接微信支付所需要的资源文件（包含支付demo和签名生成工具） 集成步骤链接按照官方文档，一步一步集成下去，你会发现一个接一个-1等着你。 导入依赖库（jar包） 导入相关文件，在eclipse上是导入jar包，在AS环境中，可以再build.gradle文件中，添加如下依赖即可  12345678dependencies &amp;#123;	//包含统计功能   c">
+<meta name="keywords" content="Android,支付,微信">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android微信支付">
+<meta property="og:url" content="https://NicholasYG.github.io/2018/10/27/Android支付/index.html">
+<meta property="og:site_name" content="葛布斯">
+<meta property="og:description" content="集成步骤先贴上官方文档的集成步骤资源链接微信支付所需要的资源文件（包含支付demo和签名生成工具） 集成步骤链接按照官方文档，一步一步集成下去，你会发现一个接一个-1等着你。 导入依赖库（jar包） 导入相关文件，在eclipse上是导入jar包，在AS环境中，可以再build.gradle文件中，添加如下依赖即可  12345678dependencies &amp;#123;	//包含统计功能   c">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://nicholasyg.github.io/2018/10/27/Android支付/source_link.jpg">
+<meta property="og:image" content="https://nicholasyg.github.io/2018/10/27/Android支付/file_catalog.jpg">
+<meta property="og:image" content="https://nicholasyg.github.io/2018/10/27/Android支付/WXPayEntryActivity.jpg">
+<meta property="og:image" content="https://nicholasyg.github.io/2018/10/27/Android支付/pay_method.jpg">
+<meta property="og:image" content="https://nicholasyg.github.io/2018/10/27/Android支付/code_state.jpg">
+<meta property="og:image" content="https://nicholasyg.github.io/2018/10/27/Android支付/error_code.jpg">
+<meta property="og:image" content="https://nicholasyg.github.io/2018/10/27/Android支付/parameter.jpg">
+<meta property="og:updated_time" content="2018-10-27T07:34:24.725Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android微信支付">
+<meta name="twitter:description" content="集成步骤先贴上官方文档的集成步骤资源链接微信支付所需要的资源文件（包含支付demo和签名生成工具） 集成步骤链接按照官方文档，一步一步集成下去，你会发现一个接一个-1等着你。 导入依赖库（jar包） 导入相关文件，在eclipse上是导入jar包，在AS环境中，可以再build.gradle文件中，添加如下依赖即可  12345678dependencies &amp;#123;	//包含统计功能   c">
+<meta name="twitter:image" content="https://nicholasyg.github.io/2018/10/27/Android支付/source_link.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://NicholasYG.github.io/2018/10/27/Android支付/"/>
+
+
+
+
+
+  <title>Android微信支付 | 葛布斯</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/NicholasYG" class="github-corner" aria-label="View source on Github"><svg width="90" height="90" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">葛布斯</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://NicholasYG.github.io/2018/10/27/Android支付/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="葛布斯">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/cat.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="葛布斯">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android微信支付</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-27T10:29:56+08:00">
+                2018-10-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="集成步骤"><a href="#集成步骤" class="headerlink" title="集成步骤"></a>集成步骤</h2><h3 id="先贴上官方文档的集成步骤"><a href="#先贴上官方文档的集成步骤" class="headerlink" title="先贴上官方文档的集成步骤"></a>先贴上官方文档的集成步骤</h3><p><a href="https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&amp;t=resource/res_list&amp;verify=1&amp;id=open1419319167&amp;token=&amp;lang=zh_CN" target="_blank" rel="noopener">资源链接</a><br>微信支付所需要的资源文件（包含支付demo和签名生成工具）</p>
+<p><a href="https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=8_5" target="_blank" rel="noopener">集成步骤链接</a><br>按照官方文档，一步一步集成下去，你会发现一个接一个-1等着你。</p>
+<h3 id="导入依赖库（jar包）"><a href="#导入依赖库（jar包）" class="headerlink" title="导入依赖库（jar包）"></a>导入依赖库（jar包）</h3><ul>
+<li>导入相关文件，在eclipse上是导入jar包，在AS环境中，可以再build.gradle文件中，添加如下依赖即可</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">	//包含统计功能</span><br><span class="line">   compile &apos;com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+&apos;</span><br><span class="line">&#125;</span><br><span class="line">或者</span><br><span class="line">dependencies &#123;</span><br><span class="line">   compile &apos;com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>当然也还可以用导入jar包的方式，下载demo文件，找到libammsdk.jar，导入到自己的项目libs文件夹中(解压压缩包，在libs文件夹中找到libammsdk.jar)</li>
+</ul>
+<p><img src="/2018/10/27/Android支付/source_link.jpg" alt="资源下载"></p>
+<p>下载地址同上面的资源链接，之后同步工程，jar包导入工作就算完成了。</p>
+<h3 id="添加WXPayEntryActivity文件（微信结果回调的类）"><a href="#添加WXPayEntryActivity文件（微信结果回调的类）" class="headerlink" title="添加WXPayEntryActivity文件（微信结果回调的类）"></a>添加WXPayEntryActivity文件（微信结果回调的类）</h3><p>WXPayEntryActivity是微信支付结果的回调类，调用微信支付SDK之后返回的结果，都会此类中获取到，根据集成要求，此类必须放在指定的位置。</p>
+<p><img src="/2018/10/27/Android支付/file_catalog.jpg" alt="回调类的位置"></p>
+<p>如上图WXPayEntryActivity必须放在这个路径下面（在Project目录结构下 <code>main</code>–<code>java</code>–<code>自己的包名</code>–<code>wxapi</code>–<code>WXPayEntryActivity</code>），如果集成过微信分享，放置的文件位置是一样的。<br>然后在清单文件(AndroidManifest)中加入WXPayEntryActivity的相关配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--微信支付--&gt;</span><br><span class="line">&lt;activity</span><br><span class="line">    android:name=&quot;.wxapi.WXPayEntryActivity&quot;</span><br><span class="line">    android:exported=&quot;true&quot;</span><br><span class="line">    android:launchMode=&quot;singleTop&quot;</span><br><span class="line">    android:theme=&quot;@style/Theme.AppCompat.NoActionBar&quot;&gt;</span><br><span class="line">    &lt;intent-filter&gt;</span><br><span class="line">        &lt;action android:name=&quot;android.intent.action.VIEW&quot;/&gt;</span><br><span class="line">        &lt;category android:name=&quot;android.intent.category.DEFAULT&quot;/&gt;</span><br><span class="line">        &lt;data android:scheme=&quot;you appid&quot;/&gt;</span><br><span class="line">    &lt;/intent-filter&gt;</span><br><span class="line"></span><br><span class="line">&lt;/activity&gt;</span><br></pre></td></tr></table></figure>
+<p>看一下里面的内容</p>
+<p><img src="/2018/10/27/Android支付/WXPayEntryActivity.jpg" alt="onCreat内容"></p>
+<p>在onCreat方法中，有一个布局文件，你可以自定义，微信支付调起以后，你想展示怎样的界面，如何告知用户，都可以在WXPayEntryActivity中展示，当然，也可以注释掉，不使用任何布局，获取到支付结果后，做相应的处理就行。<br>下面是获取支付结果的方法：</p>
+<p><img src="/2018/10/27/Android支付/pay_method.jpg" alt="支付结果返回码"></p>
+<p>demo中给出的onResp方法，会将支付结果以弹窗的形式显示出来。当然你可以根据不同的状态码做不同的操作，<br>仅供参考（code 0、支付成功  -1、支付失败  -2、取消支付）</p>
+<p><img src="/2018/10/27/Android支付/code_state.jpg" alt="状态处理"></p>
+<p>你可以根据不同的状态做相应的处理，文档也对三种状态有对应的解释：</p>
+<p><img src="/2018/10/27/Android支付/error_code.jpg" alt="文档code说明"></p>
+<p>其中支付失败，返回-1的场景有很多，后面再详细说明。</p>
+<h3 id="调用微信支付"><a href="#调用微信支付" class="headerlink" title="调用微信支付"></a>调用微信支付</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">private void toWeChatPay(OrderModel orderModel) &#123;</span><br><span class="line">     IWXAPI wxapi = WXAPIFactory.createWXAPI(this, Const.WECHAT_PAY_APP_ID);    </span><br><span class="line">    if (wxapi.isWXAppInstalled()) &#123;//判断是否安装微信</span><br><span class="line">    wxapi.registerApp(Const.WECHAT_PAY_APP_ID);//把app注册到微信</span><br><span class="line">        //给PayReq赋值</span><br><span class="line">        PayReq req = new PayReq();</span><br><span class="line">        req.appId = Const.WECHAT_PAY_APP_ID;</span><br><span class="line">        req.partnerId = orderModel.partnerId;</span><br><span class="line">        req.prepayId = orderModel.prepayId;</span><br><span class="line">        req.packageValue = orderModel.packageValue;</span><br><span class="line">        req.nonceStr = orderModel.nonceStr;</span><br><span class="line">        req.timeStamp = orderModel.timeStamp;</span><br><span class="line">        req.sign = orderModel.sign;</span><br><span class="line">        //发起请求 调用微信支付</span><br><span class="line">        wxapi.sendReq(req);</span><br><span class="line"></span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        ToastUtil.showToast(activity, &quot;请您先安装微信！&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用时的七个参数，可以查看具体的<a href="https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_12" target="_blank" rel="noopener">文档说明</a></p>
+<p><img src="/2018/10/27/Android支付/parameter.jpg" alt="参数"></p>
+<p>这些个参数，可以跟后台沟通，返回给我们使用，当然其中的appid可以定义成静态的全局变量,在使用之前最好做一下非空判断。</p>
+<h3 id="调用返回-1分析"><a href="#调用返回-1分析" class="headerlink" title="调用返回-1分析"></a>调用返回-1分析</h3><p>以上步骤如果你已经全部完成，那么恭喜你集成算是成功了，接下来将是调用迎来的errCode = -1，在文档上，对于-1的解释是这样的：</p>
+<blockquote>
+<p>可能的原因：签名错误、未注册APPID、项目设置APPID不正确、注册的APPID与设置的不匹配、其他异常等</p>
+</blockquote>
+<p>对以上提到的错误原因我们一一分析：</p>
+<h4 id="首先说说签名错误"><a href="#首先说说签名错误" class="headerlink" title="首先说说签名错误"></a>首先说说签名错误</h4><p>签名如何获取？根据文档提供的下载链接，下载签名工具，输入包名，生成app唯一的签名，在文档上有详细的说明，但是要注意生成的签名，debug包和release包生成的签名是不一样的，所以在微信开放平台中填写的签名一定要区分，在测试阶段使用的是debug包生成的签名，上线使用的必须是release包生成的签名，一句话，应用包和签名一致，如果签名不一致，就会造成支付失败，errCode返回-1的情况。如果集成的有微信分享，可以用微信分享验证签名是否正确，如果同一签名下，微信分享可以分享成功，那么微信支付的签名一定是对的，返回-1就从其他方面找原因。</p>
+<h4 id="APPID错误"><a href="#APPID错误" class="headerlink" title="APPID错误"></a>APPID错误</h4><p> APPID是微信开放平台给应用分配的，从上面复制就行，可以把APPID放在本地（一般不会变的），在AndroidManifast中、调用微信支付、WXPayEntryActivity等都会用到APPID。</p>
+<h4 id="参数错误"><a href="#参数错误" class="headerlink" title="参数错误"></a>参数错误</h4><p>APPID和签名都正确的情况，再去调用微信支付。可能会出现这样的情况：如果微信未登录的情况下，会把微信调起来，在登录的情况下，返回值还是-1，这时候就要考虑参数的问题了，从demo里面拿过来的appid和一系列参数，放到自己的项目里面是不行的，参数要使用自己的appid对应生成的参数才可以，调用起微信。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+          
+            <a href="/tags/支付/" rel="tag"><i class="fa fa-tag"></i> 支付</a>
+          
+            <a href="/tags/微信/" rel="tag"><i class="fa fa-tag"></i> 微信</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/16/Nexus私服上传/" rel="next" title="使用AS上传lib(module)包到Nexus私服（3.x）">
+                <i class="fa fa-chevron-left"></i> 使用AS上传lib(module)包到Nexus私服（3.x）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  <div>
+    
+      <div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
+    
+  </div>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/cat.jpg"
+                alt="葛布斯" />
+            
+              <p class="site-author-name" itemprop="name">葛布斯</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/NicholasYG" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mail.google.com" target="_blank" title="邮箱">
+                      
+                        <i class="fa fa-fw fa-globe"></i>邮箱</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://flutter-io.cn/#section-codelabs" target="_blank" title="Flutter">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Flutter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.alloyteam.com/nav/" title="Web前端导航" target="_blank">Web前端导航</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.chuangzaoshi.com/code" title="创造狮导航" target="_blank">创造狮导航</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.36zhen.com/t?id=3448" title="前端书籍资料" target="_blank">前端书籍资料</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://e.xitu.io/" title="掘金酱" target="_blank">掘金酱</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.v2ex.com/" title="V2EX" target="_blank">V2EX</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.v2ex.com/" title="印记中文" target="_blank">印记中文</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#集成步骤"><span class="nav-number">1.</span> <span class="nav-text">集成步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#先贴上官方文档的集成步骤"><span class="nav-number">1.1.</span> <span class="nav-text">先贴上官方文档的集成步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导入依赖库（jar包）"><span class="nav-number">1.2.</span> <span class="nav-text">导入依赖库（jar包）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加WXPayEntryActivity文件（微信结果回调的类）"><span class="nav-number">1.3.</span> <span class="nav-text">添加WXPayEntryActivity文件（微信结果回调的类）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调用微信支付"><span class="nav-number">1.4.</span> <span class="nav-text">调用微信支付</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调用返回-1分析"><span class="nav-number">1.5.</span> <span class="nav-text">调用返回-1分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#首先说说签名错误"><span class="nav-number">1.5.1.</span> <span class="nav-text">首先说说签名错误</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#APPID错误"><span class="nav-number">1.5.2.</span> <span class="nav-text">APPID错误</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参数错误"><span class="nav-number">1.5.3.</span> <span class="nav-text">参数错误</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">葛布斯</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">3.4k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":true,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":100,"height":200,"bottom":-100},"mobile":{"show":false}});</script>
+</body>
+</html>
+<script type="text/javascript" src="/js/src/love.js"></script>
