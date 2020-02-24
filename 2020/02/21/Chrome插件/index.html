@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+      
+    
+    
+      
+    
+  <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+  <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-flash.min.css" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="chrome,插件,crx," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="葛布斯" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言Chrome在我们日常工作中，是不可或缺的办公利器，加上Chrome的插件更是如虎添翼，可是应用商店中的插件需要科学上网才能获取。上有政策，下有对策，有一些网站专门提供chrome插件的下载，下面推荐两个： chrome插件网 极简插件 在上面这些网站中找到自己心仪的插件，下载下来。怎么安装就是我们要说的。当然，如果你可以科学上网，还是建议直接在cherome商店里面安装，稳定又便捷 目录 安">
+<meta name="keywords" content="chrome,插件,crx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mac上Chrome插件安装及打包方法">
+<meta property="og:url" content="https://NicholasYG.github.io/2020/02/21/Chrome插件/index.html">
+<meta property="og:site_name" content="葛布斯">
+<meta property="og:description" content="前言Chrome在我们日常工作中，是不可或缺的办公利器，加上Chrome的插件更是如虎添翼，可是应用商店中的插件需要科学上网才能获取。上有政策，下有对策，有一些网站专门提供chrome插件的下载，下面推荐两个： chrome插件网 极简插件 在上面这些网站中找到自己心仪的插件，下载下来。怎么安装就是我们要说的。当然，如果你可以科学上网，还是建议直接在cherome商店里面安装，稳定又便捷 目录 安">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/02/21/Chrome插件/entre_chrome.jpg">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/02/21/Chrome插件/entre_chrome_2.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/02/21/Chrome插件/open_developer.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/02/21/Chrome插件/push_install.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/02/21/Chrome插件/install_select.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/02/21/Chrome插件/install_success.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/02/21/Chrome插件/install_failed_0.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/02/21/Chrome插件/install_success_other.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/02/21/Chrome插件/check_plugin_id.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/02/21/Chrome插件/chrome_id_file.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/02/21/Chrome插件/jump_plugin_file.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/02/21/Chrome插件/deveioper_pack_button.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/02/21/Chrome插件/select_plugin_file.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/02/21/Chrome插件/select_pack_begin.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/02/21/Chrome插件/pack_success_dialog.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/02/21/Chrome插件/pack_success_file.png">
+<meta property="og:updated_time" content="2020-02-24T03:39:17.647Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mac上Chrome插件安装及打包方法">
+<meta name="twitter:description" content="前言Chrome在我们日常工作中，是不可或缺的办公利器，加上Chrome的插件更是如虎添翼，可是应用商店中的插件需要科学上网才能获取。上有政策，下有对策，有一些网站专门提供chrome插件的下载，下面推荐两个： chrome插件网 极简插件 在上面这些网站中找到自己心仪的插件，下载下来。怎么安装就是我们要说的。当然，如果你可以科学上网，还是建议直接在cherome商店里面安装，稳定又便捷 目录 安">
+<meta name="twitter:image" content="https://nicholasyg.github.io/2020/02/21/Chrome插件/entre_chrome.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://NicholasYG.github.io/2020/02/21/Chrome插件/"/>
+
+
+
+
+
+  <title>Mac上Chrome插件安装及打包方法 | 葛布斯</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/NicholasYG" class="github-corner" aria-label="View source on Github"><svg width="90" height="90" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">葛布斯</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://NicholasYG.github.io/2020/02/21/Chrome插件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="葛布斯">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/cat.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="葛布斯">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Mac上Chrome插件安装及打包方法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-21T17:04:00+08:00">
+                2020-02-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/其他/" itemprop="url" rel="index">
+                    <span itemprop="name">其他</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Chrome在我们日常工作中，是不可或缺的办公利器，加上Chrome的插件更是如虎添翼，可是应用商店中的插件需要科学上网才能获取。上有政策，下有对策，有一些网站专门提供chrome插件的下载，下面推荐两个：</p>
+<p><a href="http://www.cnplugins.com/" target="_blank" rel="noopener">chrome插件网</a></p>
+<p><a href="https://chrome.zzzmh.cn/" target="_blank" rel="noopener">极简插件</a></p>
+<p>在上面这些网站中找到自己心仪的插件，下载下来。怎么安装就是我们要说的。<br><code>当然，如果你可以科学上网，还是建议直接在cherome商店里面安装，稳定又便捷</code></p>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li>安装crx插件文件</li>
+<li>安装zip插件文件</li>
+<li>打包Chrome浏览器中的插件成crx</li>
+</ul>
+<h2 id="安装crx插件文件"><a href="#安装crx插件文件" class="headerlink" title="安装crx插件文件"></a>安装crx插件文件</h2><p>crx文件下载下来的后，很好安装，打开Chrome的扩展程序，直接拖拽进去就好；打开扩展程序的方式有两种</p>
+<h4 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h4><p>在浏览器中直接输入<code>chrome://extensions/</code>回车，就可以进入到扩展程序界面</p>
+<p><img src="/2020/02/21/Chrome插件/entre_chrome.jpg" alt="打开扩展程序"></p>
+<h4 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h4><p>按照下图1、2、3、的步骤，点击扩展程序进入到扩展程序界面</p>
+<p><img src="/2020/02/21/Chrome插件/entre_chrome_2.png" alt="打开扩展程序"></p>
+<p>进入到扩展界面后需要先把右上角的开发者模式打开，如下图所示：</p>
+<p><img src="/2020/02/21/Chrome插件/open_developer.png" alt="打开扩展程序"></p>
+<p>注意：这里说一下，如果开发者模式没有打开，把crx插件拖拽进来你会发现，chrome会展示一个下载界面，让你选择当前crx放置的位置；在这种情况下打开chrome的开发者模式，再次拖拽进来，还是会展示下载界面，这时我们需要把chrome完全退出来，重新打开，在开发者模式打开的情况下，把crx文件拖拽到扩展界面中。</p>
+<p>开发者模式开启后，把下载好的crx文件拖拽到扩展程序界面，会看到如下界面</p>
+<p><img src="/2020/02/21/Chrome插件/push_install.png" alt="打开扩展程序"></p>
+<p>如果插件和你当前的浏览器匹配的话会弹出下面的确认弹框</p>
+<p><img src="/2020/02/21/Chrome插件/install_select.png" alt="打开扩展程序"></p>
+<p>我们选择添加扩展程序按钮，就可以看到下载的crx文件已经安装到了chrome上</p>
+<p><img src="/2020/02/21/Chrome插件/install_success.png" alt="打开扩展程序"></p>
+<p>安装成功后记得把插件右下角的开关打开（默认是开着的），这时插件就会显示在浏览器的右上角位置，然后就可以愉快的使用了。</p>
+<h2 id="安装zip插件文件"><a href="#安装zip插件文件" class="headerlink" title="安装zip插件文件"></a>安装zip插件文件</h2><p>当然有的时候安装并没有这么顺利，比如当你把crx文件拖拽进来以后，你会看到下面的情况：</p>
+<p><img src="/2020/02/21/Chrome插件/install_failed_0.png" alt="打开扩展程序"></p>
+<p>造成这种情况原因可能是这样：</p>
+<blockquote>
+<p>原因是Chrome更新时，改变了头部信息打包方式！<br>导致的老版本Chrome打包的crx插件，无法直接安装在新版本Chrome中<br>举个例子,开发人员在2018年3月用chrome68把他写的插件打包成crx文件.<br>此时用户也用chrome68,一切正常安装使用.<br>等到chrome73发布的时候,头部打包方式就大改版了<br>用户再安装”chrome68打包的crx”就会出现<code>CRX_HEADER_INVALID</code>错误<br>这就说明这个插件不适合直接拖动安装</p>
+</blockquote>
+<p>如果出现这种情况怎么解决呢，也不麻烦，只需要将我们下载的插件的<code>xxx.crx</code>改成<code>xxx.zip</code>，之后再次拖拽到扩展程序界面就可以了。值得注意的是改为zip后缀的插件包，拖拽到扩展程序界面的时候，不再有弹框提示，直接就安装好了，另外在安装的插件上会看到多出一个图标,提示是<code>未封装的扩展程序</code></p>
+<p><img src="/2020/02/21/Chrome插件/install_success_other.png" alt="打开扩展程序"></p>
+<p>并不会影响到插件的使用，正常使用就好。</p>
+<h2 id="打包Chrome浏览器中的插件成crx"><a href="#打包Chrome浏览器中的插件成crx" class="headerlink" title="打包Chrome浏览器中的插件成crx"></a>打包Chrome浏览器中的插件成crx</h2><p>有的时候我们浏览器中很多好用的插件，想分享给同事，或者想要同事电脑中的某一个插件，在上面提到的网站中又没有找到，我们就可以把已经安装好的插件打包成crx文件，然后给其他人安装，下面就介绍打包流程。</p>
+<h4 id="找到已经安装插件的位置"><a href="#找到已经安装插件的位置" class="headerlink" title="找到已经安装插件的位置"></a>找到已经安装插件的位置</h4><p>chrome上的每一个插件都有自己的id，这个id会对应安装位置的文件夹，我们先找到它，还是先打开<code>扩展程序</code>界面，在描述下方显示者id：</p>
+<p><img src="/2020/02/21/Chrome插件/check_plugin_id.png" alt="打开扩展程序"></p>
+<p>我们先记住这个id，或者复制出来，一会儿会用到。在chrome中，所有的插件都放置在下面的这个路径下面：</p>
+<p><code>~/Library/Application Support/Google/Chrome/Default/Extensions</code></p>
+<p>我们先看看这个文件夹下面都是什么：</p>
+<p><img src="/2020/02/21/Chrome插件/chrome_id_file.png" alt="打开扩展程序"></p>
+<p>可以看到里面都是一些id，图中圈住的就是刚才我们在<code>扩展程序</code>中看到的，想要打包的插件id。我们想要的东西已经找到了。</p>
+<p>说一下上面的路径，不建议看着文件名一层一层点进去查看，可能也找不到，因为系统的<code>资源库</code>文件夹默认是隐藏的，这里建议在<code>访达</code>中，按快捷键<code>command + shift + G</code>，复制上面的路径，点<code>前往</code>，可直接跳转到插件的文件夹下，找到自己想要打包的插件id对应的文件夹。</p>
+<p><img src="/2020/02/21/Chrome插件/jump_plugin_file.png" alt="打开扩展程序"></p>
+<h4 id="把插件打包成crx"><a href="#把插件打包成crx" class="headerlink" title="把插件打包成crx"></a>把插件打包成crx</h4><p>上面文件找到到了，我们该如何打包呢？还是回到<code>扩展程序</code>界面，打开<code>开发者模式</code>,会看到，下面有三个按钮：</p>
+<p><img src="/2020/02/21/Chrome插件/deveioper_pack_button.png" alt="打开扩展程序"></p>
+<p>我们点击<code>打包扩展程序</code>，在弹出提示框中，<code>私钥文件（选填）</code>对应的，我们可以不选。点击<code>扩展程序根目录</code>对应的<code>浏览</code>按钮，之后会弹出<code>访达</code>界面，我们用快捷键<code>command + shift + G</code>，复制插件的路径，直接到达插件的放置文件夹下,到了文件夹下，我们需要点击id所对应的文件，然后会看到一个插件当前版本的文件夹，我们选中这个版本文件夹，然后点击<code>选择</code>按钮</p>
+<p><img src="/2020/02/21/Chrome插件/select_plugin_file.png" alt="打开扩展程序"></p>
+<p>回到打包界面的弹框，点击<code>打包扩展程序</code></p>
+<p><img src="/2020/02/21/Chrome插件/select_pack_begin.png" alt="打开扩展程序"></p>
+<p>如果不出意外，会弹出下面这样的打包成功的弹框</p>
+<p><img src="/2020/02/21/Chrome插件/pack_success_dialog.png" alt="打开扩展程序"></p>
+<p>我们看上面信息，给出了已经打好包的crx文件对应的路径，还有相配套的私钥文件，可以看出文件生成的位置还是在插件对应id的文件夹下，我们再次打开<code>访达</code>，用快捷键的方式来到id文件夹，打开就可以看到，除了之前的版本文件夹，还有两个新的的文件，一个是我们需要的crx插件包，另一个是相匹配的私钥文件。</p>
+<p><img src="/2020/02/21/Chrome插件/pack_success_file.png" alt="打开扩展程序"></p>
+<p>至此我们已安装插件的打包就完成了。</p>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>有了crx文件，安装的方法上面已经说了，这里就不再赘述了。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/chrome/" rel="tag"><i class="fa fa-tag"></i> chrome</a>
+          
+            <a href="/tags/插件/" rel="tag"><i class="fa fa-tag"></i> 插件</a>
+          
+            <a href="/tags/crx/" rel="tag"><i class="fa fa-tag"></i> crx</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/09/Java/" rel="next" title="Java注解的基本用法">
+                <i class="fa fa-chevron-left"></i> Java注解的基本用法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  <div>
+    
+      <div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
+    
+  </div>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/cat.jpg"
+                alt="葛布斯" />
+            
+              <p class="site-author-name" itemprop="name">葛布斯</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/NicholasYG" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mail.google.com" target="_blank" title="邮箱">
+                      
+                        <i class="fa fa-fw fa-globe"></i>邮箱</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.kotlincn.net/" target="_blank" title="Kotlin">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Kotlin</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://flutter-io.cn/#section-codelabs" target="_blank" title="Flutter">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Flutter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://gank.io/" title="干货集中营" target="_blank">干货集中营</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://color-themes.com/?view=index" title="Color Theme" target="_blank">Color Theme</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.androiddevtools.cn/" title="AndroidDevTools" target="_blank">AndroidDevTools</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://e.xitu.io/" title="掘金酱" target="_blank">掘金酱</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://wanandroid.com/" title="玩Android" target="_blank">玩Android</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目录"><span class="nav-number">2.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装crx插件文件"><span class="nav-number">3.</span> <span class="nav-text">安装crx插件文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方法一"><span class="nav-number">3.0.1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法二"><span class="nav-number">3.0.2.</span> <span class="nav-text">方法二</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装zip插件文件"><span class="nav-number">4.</span> <span class="nav-text">安装zip插件文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#打包Chrome浏览器中的插件成crx"><span class="nav-number">5.</span> <span class="nav-text">打包Chrome浏览器中的插件成crx</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#找到已经安装插件的位置"><span class="nav-number">5.0.1.</span> <span class="nav-text">找到已经安装插件的位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#把插件打包成crx"><span class="nav-number">5.0.2.</span> <span class="nav-text">把插件打包成crx</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装"><span class="nav-number">5.0.3.</span> <span class="nav-text">安装</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">葛布斯</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">6.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+<!--
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+-->
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":true,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":100,"height":200,"bottom":-100},"mobile":{"show":false}});</script>
+</body>
+</html>
+<script type="text/javascript" src="/js/src/love.js"></script>
