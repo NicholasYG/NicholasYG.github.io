@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://NicholasYG.github.io/"/>
-  <updated>2020-03-09T13:28:57.914Z</updated>
+  <updated>2020-03-10T09:06:40.317Z</updated>
   <id>https://NicholasYG.github.io/</id>
   
   <author>
@@ -21,9 +21,16 @@
     <link href="https://NicholasYG.github.io/2020/03/09/Gradle%E9%97%AE%E9%A2%98/"/>
     <id>https://NicholasYG.github.io/2020/03/09/Gradle问题/</id>
     <published>2020-03-09T13:28:57.914Z</published>
-    <updated>2020-03-09T13:28:57.914Z</updated>
+    <updated>2020-03-10T09:06:40.317Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本篇文章用来记录在平时开发过程中遇到的一些关于gradle的问题，有常用的命令，有一些常见或不常见的问题，会持续更新，遇到了就会加入进来。</p><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul><li>常用命令</li><li>常见问题</li></ul><h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>以下的所有命令，都是在项目的<code>Terminal</code>中运行</p><ul><li><code>ls ~/.gradle/wrapper/dists/</code></li></ul><p><img src="/2020/03/09/Gradle问题/gradle_list.png" alt="gradle列表"></p><p>用来查看下载过的所有的gradle版本。在我们<code>gradle-wrapper.properties</code>文件中，可以看到当前项目引用的<code>gradle</code>版本；在项目根目录的<code>build.gradle</code>中，我们可以看到当前依赖的<code>gradle</code>插件版本，插件版本和<code>gradle</code>版本是要对应的。如下图所示：</p><p><img src="/2020/03/09/Gradle问题/compare.png" alt="对照图"></p><p>上面是<a href="https://developer.android.google.cn/studio/releases/gradle-plugin#updating-plugin" target="_blank" rel="noopener">Android官方文档</a>给出的对照表，举个例子：</p><p>现在我项目用的插件版本是<code>3.5.3</code></p><p><img src="/2020/03/09/Gradle问题/build.png" alt="bulid.gradle"></p><p>那么参照上面的对照表我对应的gradle版本是<code>5.4.1</code>，需要在<code>5.4.1-5.6.4</code>之间选择一个版本</p><p><img src="/2020/03/09/Gradle问题/properties.png" alt="gradle-wrapper.properties"></p><blockquote><p>注意：请勿在版本号中采用动态依赖项（例如 ‘com.android.tools.build:gradle:2.+’），否则可能会导致意外的版本更新和难以解析的版本差异。</p></blockquote><p>有了上面的命令，你就可以根据你当前项目的插件版本，在已经下载的gradle版本中选择了，当然如果列表中没有，还是需要单独下载。</p>]]></content>
     
     <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;本篇文章用来记录在平时开发过程中遇到的一些关于gradle的问题，有常用的命令，有一些常见或不常见的问题，会持续更新，遇到了就会加入进来。&lt;
+      
     
     </summary>
     
