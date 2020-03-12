@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://NicholasYG.github.io/"/>
-  <updated>2020-03-11T12:18:00.381Z</updated>
+  <updated>2020-03-12T11:38:50.748Z</updated>
   <id>https://NicholasYG.github.io/</id>
   
   <author>
@@ -21,18 +21,25 @@
     <link href="https://NicholasYG.github.io/2020/03/11/android%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/"/>
     <id>https://NicholasYG.github.io/2020/03/11/android相关问题/</id>
     <published>2020-03-11T12:17:57.797Z</published>
-    <updated>2020-03-11T12:18:00.381Z</updated>
+    <updated>2020-03-12T11:38:50.748Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这一篇文章用来记录平时在开发中遇到的除<code>gradle</code>外的其他问题，一是加强记忆，二来也方便后续再次遇到同类问题方便查找。</p><h1 id="问题列表"><a href="#问题列表" class="headerlink" title="问题列表"></a>问题列表</h1><h2 id="问题描述-Error-while-Launching-activity"><a href="#问题描述-Error-while-Launching-activity" class="headerlink" title="问题描述(Error while Launching activity)"></a>问题描述(Error while Launching activity)</h2><p>在开发过程中连接着手机联调的时候，程序已经安装在手机上，这时候因为一些原因把APP卸载了，再次点击<code>Run</code>重新运行程序，安装app，出现了下面的错误</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Error: Activity class &#123;com.hencoder.hencoderpracticedraw7/com.hencoder.hencoderpracticedraw7.MainActivity&#125; does not exist.</span><br><span class="line"></span><br><span class="line">Error while Launching activity</span><br></pre></td></tr></table></figure><p><img src="/2020/03/11/android相关问题/run_failed.png" alt="运行出错"></p><p>提示说启动界面时出错了，再往上一行说启动页（这里是MainActivity）不存在。出现这个问题的原因应该是，AS认为装载的app还存在，启动页却找不到了。但是实际上我们已经卸载了。</p><h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>在AS底部的工具栏中找到<code>Terminal</code>，打开，输入以下命令</p><p><code>adb uninstall 你的包名</code></p><p>我这里的包名是<code>com.hencoder.hencoderpracticedraw7</code>，所以就这样写：</p><p><code>adb uninstall com.hencoder.hencoderpracticedraw7</code></p><p>然后回车，出现<code>Success</code>字样</p><p><img src="/2020/03/11/android相关问题/uninstall.png" alt="卸载成功"></p><p>用adb的方式把app完全卸载掉，再次运行APP就可以了。</p>]]></content>
     
     <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;这一篇文章用来记录平时在开发中遇到的除&lt;code&gt;gradle&lt;/code&gt;外的其他问题，一是加强记忆，二来也方便后续再次遇到同类问题方便查
+      
     
     </summary>
     
       <category term="Android" scheme="https://NicholasYG.github.io/categories/Android/"/>
     
     
-      <category term="java" scheme="https://NicholasYG.github.io/tags/java/"/>
-    
       <category term="android" scheme="https://NicholasYG.github.io/tags/android/"/>
+    
+      <category term="java" scheme="https://NicholasYG.github.io/tags/java/"/>
     
   </entry>
   
@@ -57,9 +64,9 @@
       <category term="Android" scheme="https://NicholasYG.github.io/categories/Android/"/>
     
     
-      <category term="android" scheme="https://NicholasYG.github.io/tags/android/"/>
-    
       <category term="gradle" scheme="https://NicholasYG.github.io/tags/gradle/"/>
+    
+      <category term="android" scheme="https://NicholasYG.github.io/tags/android/"/>
     
   </entry>
   

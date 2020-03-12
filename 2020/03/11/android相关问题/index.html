@@ -83,7 +83,7 @@
 
 
 
-  <meta name="keywords" content="java,android," />
+  <meta name="keywords" content="android,java," />
 
 
 
@@ -96,15 +96,21 @@
 
 
 
-<meta name="keywords" content="java,android">
+<meta name="description" content="前言这一篇文章用来记录平时在开发中遇到的除gradle外的其他问题，一是加强记忆，二来也方便后续再次遇到同类问题方便查找。 问题列表问题描述(Error while Launching activity)在开发过程中连接着手机联调的时候，程序已经安装在手机上，这时候因为一些原因把APP卸载了，再次点击Run重新运行程序，安装app，出现了下面的错误 123Error: Activity class">
+<meta name="keywords" content="android,java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android开发遇到的问题整合（持续更新）">
 <meta property="og:url" content="https://NicholasYG.github.io/2020/03/11/android相关问题/index.html">
 <meta property="og:site_name" content="葛布斯">
+<meta property="og:description" content="前言这一篇文章用来记录平时在开发中遇到的除gradle外的其他问题，一是加强记忆，二来也方便后续再次遇到同类问题方便查找。 问题列表问题描述(Error while Launching activity)在开发过程中连接着手机联调的时候，程序已经安装在手机上，这时候因为一些原因把APP卸载了，再次点击Run重新运行程序，安装app，出现了下面的错误 123Error: Activity class">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-03-11T12:18:00.381Z">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/03/11/android相关问题/run_failed.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/03/11/android相关问题/uninstall.png">
+<meta property="og:updated_time" content="2020-03-12T11:38:50.748Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android开发遇到的问题整合（持续更新）">
+<meta name="twitter:description" content="前言这一篇文章用来记录平时在开发中遇到的除gradle外的其他问题，一是加强记忆，二来也方便后续再次遇到同类问题方便查找。 问题列表问题描述(Error while Launching activity)在开发过程中连接着手机联调的时候，程序已经安装在手机上，这时候因为一些原因把APP卸载了，再次点击Run重新运行程序，安装app，出现了下面的错误 123Error: Activity class">
+<meta name="twitter:image" content="https://nicholasyg.github.io/2020/03/11/android相关问题/run_failed.png">
 
 
 
@@ -361,7 +367,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  0
+                  293
                 </span>
               
 
@@ -398,7 +404,19 @@
       
 
       
-        
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这一篇文章用来记录平时在开发中遇到的除<code>gradle</code>外的其他问题，一是加强记忆，二来也方便后续再次遇到同类问题方便查找。</p>
+<h1 id="问题列表"><a href="#问题列表" class="headerlink" title="问题列表"></a>问题列表</h1><h2 id="问题描述-Error-while-Launching-activity"><a href="#问题描述-Error-while-Launching-activity" class="headerlink" title="问题描述(Error while Launching activity)"></a>问题描述(Error while Launching activity)</h2><p>在开发过程中连接着手机联调的时候，程序已经安装在手机上，这时候因为一些原因把APP卸载了，再次点击<code>Run</code>重新运行程序，安装app，出现了下面的错误</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Error: Activity class &#123;com.hencoder.hencoderpracticedraw7/com.hencoder.hencoderpracticedraw7.MainActivity&#125; does not exist.</span><br><span class="line"></span><br><span class="line">Error while Launching activity</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/03/11/android相关问题/run_failed.png" alt="运行出错"></p>
+<p>提示说启动界面时出错了，再往上一行说启动页（这里是MainActivity）不存在。出现这个问题的原因应该是，AS认为装载的app还存在，启动页却找不到了。但是实际上我们已经卸载了。</p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>在AS底部的工具栏中找到<code>Terminal</code>，打开，输入以下命令</p>
+<p><code>adb uninstall 你的包名</code></p>
+<p>我这里的包名是<code>com.hencoder.hencoderpracticedraw7</code>，所以就这样写：</p>
+<p><code>adb uninstall com.hencoder.hencoderpracticedraw7</code></p>
+<p>然后回车，出现<code>Success</code>字样</p>
+<p><img src="/2020/03/11/android相关问题/uninstall.png" alt="卸载成功"></p>
+<p>用adb的方式把app完全卸载掉，再次运行APP就可以了。</p>
+
       
     </div>
     
@@ -415,9 +433,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
-          
             <a href="/tags/android/" rel="tag"><i class="fa fa-tag"></i> android</a>
+          
+            <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
           
         </div>
       
@@ -499,8 +517,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -630,6 +657,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题列表"><span class="nav-number">2.</span> <span class="nav-text">问题列表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题描述-Error-while-Launching-activity"><span class="nav-number">2.1.</span> <span class="nav-text">问题描述(Error while Launching activity)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决办法"><span class="nav-number">2.2.</span> <span class="nav-text">解决办法</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -657,7 +700,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">9.3k</span>
+    <span title="Site words total count">9.6k</span>
   
 </div>
 
