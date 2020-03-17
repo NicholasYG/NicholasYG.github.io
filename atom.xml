@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://NicholasYG.github.io/"/>
-  <updated>2020-03-12T11:38:50.748Z</updated>
+  <updated>2020-03-17T13:25:39.801Z</updated>
   <id>https://NicholasYG.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android单元测试之Junit</title>
+    <link href="https://NicholasYG.github.io/2020/03/17/Junit4/"/>
+    <id>https://NicholasYG.github.io/2020/03/17/Junit4/</id>
+    <published>2020-03-17T13:25:39.801Z</published>
+    <updated>2020-03-17T13:25:39.801Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="java" scheme="https://NicholasYG.github.io/categories/java/"/>
+    
+      <category term="Android" scheme="https://NicholasYG.github.io/categories/java/Android/"/>
+    
+    
+      <category term="android" scheme="https://NicholasYG.github.io/tags/android/"/>
+    
+      <category term="java" scheme="https://NicholasYG.github.io/tags/java/"/>
+    
+      <category term="单元测试" scheme="https://NicholasYG.github.io/tags/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/"/>
+    
+  </entry>
   
   <entry>
     <title>Android开发遇到的问题整合（持续更新）</title>
