@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://NicholasYG.github.io/"/>
-  <updated>2020-03-17T13:25:39.801Z</updated>
+  <updated>2020-03-19T11:48:17.665Z</updated>
   <id>https://NicholasYG.github.io/</id>
   
   <author>
@@ -21,20 +21,18 @@
     <link href="https://NicholasYG.github.io/2020/03/17/Junit4/"/>
     <id>https://NicholasYG.github.io/2020/03/17/Junit4/</id>
     <published>2020-03-17T13:25:39.801Z</published>
-    <updated>2020-03-17T13:25:39.801Z</updated>
+    <updated>2020-03-19T11:48:17.665Z</updated>
     
     <summary type="html">
     
     </summary>
     
-      <category term="java" scheme="https://NicholasYG.github.io/categories/java/"/>
+      <category term="Android" scheme="https://NicholasYG.github.io/categories/Android/"/>
     
-      <category term="Android" scheme="https://NicholasYG.github.io/categories/java/Android/"/>
-    
-    
-      <category term="android" scheme="https://NicholasYG.github.io/tags/android/"/>
     
       <category term="java" scheme="https://NicholasYG.github.io/tags/java/"/>
+    
+      <category term="android" scheme="https://NicholasYG.github.io/tags/android/"/>
     
       <category term="单元测试" scheme="https://NicholasYG.github.io/tags/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/"/>
     
@@ -61,9 +59,9 @@
       <category term="Android" scheme="https://NicholasYG.github.io/categories/Android/"/>
     
     
-      <category term="android" scheme="https://NicholasYG.github.io/tags/android/"/>
-    
       <category term="java" scheme="https://NicholasYG.github.io/tags/java/"/>
+    
+      <category term="android" scheme="https://NicholasYG.github.io/tags/android/"/>
     
   </entry>
   
@@ -88,9 +86,9 @@
       <category term="Android" scheme="https://NicholasYG.github.io/categories/Android/"/>
     
     
-      <category term="gradle" scheme="https://NicholasYG.github.io/tags/gradle/"/>
-    
       <category term="android" scheme="https://NicholasYG.github.io/tags/android/"/>
+    
+      <category term="gradle" scheme="https://NicholasYG.github.io/tags/gradle/"/>
     
   </entry>
   
@@ -115,9 +113,9 @@
       <category term="Android" scheme="https://NicholasYG.github.io/categories/Android/"/>
     
     
-      <category term="Android" scheme="https://NicholasYG.github.io/tags/Android/"/>
-    
       <category term="java" scheme="https://NicholasYG.github.io/tags/java/"/>
+    
+      <category term="Android" scheme="https://NicholasYG.github.io/tags/Android/"/>
     
       <category term="jacoco" scheme="https://NicholasYG.github.io/tags/jacoco/"/>
     
@@ -229,9 +227,9 @@
       <category term="java" scheme="https://NicholasYG.github.io/categories/java/"/>
     
     
-      <category term="Android" scheme="https://NicholasYG.github.io/tags/Android/"/>
-    
       <category term="java" scheme="https://NicholasYG.github.io/tags/java/"/>
+    
+      <category term="Android" scheme="https://NicholasYG.github.io/tags/Android/"/>
     
       <category term="nexus" scheme="https://NicholasYG.github.io/tags/nexus/"/>
     
