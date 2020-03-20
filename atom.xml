@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://NicholasYG.github.io/"/>
-  <updated>2020-03-19T11:48:17.665Z</updated>
+  <updated>2020-03-20T13:47:11.565Z</updated>
   <id>https://NicholasYG.github.io/</id>
   
   <author>
@@ -17,22 +17,32 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Android单元测试之Junit</title>
+    <title>用Junit4怎么在Android中做测试?</title>
     <link href="https://NicholasYG.github.io/2020/03/17/Junit4/"/>
     <id>https://NicholasYG.github.io/2020/03/17/Junit4/</id>
     <published>2020-03-17T13:25:39.801Z</published>
-    <updated>2020-03-19T11:48:17.665Z</updated>
+    <updated>2020-03-20T13:47:11.565Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>注解</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">* @Test:将一个普通的方法修饰成为一个测试方法</span><br><span class="line">* @Test(expected=XX.class) XX可以是异常类，在运行此测试方法时，会忽略掉异常类的错误，正常运行</span><br><span class="line">* @Test(timeout=毫秒 ) 测试方法的超时时间，当被测试方法耗时超过timeout时长，会终止该方法的测试</span><br><span class="line">* @BeforeClass：它会在所有的方法运行前被执行，static修饰</span><br><span class="line">* @AfterClass:它会在所有的方法运行结束后被执行，static修饰</span><br><span class="line">* @Before：会在每一个测试方法被运行前执行一次</span><br><span class="line">* @After：会在每一个测试方法运行后被执行一次</span><br><span class="line">* @Ignore:所修饰的测试方法会被测试运行器忽略</span><br><span class="line">* @RunWith:可以更改测试运行器 org.junit.runner.Runner （会单独说）</span><br><span class="line">*/</span><br></pre></td></tr></table></figure><ul><li>断言</li></ul><p>预测被测试方法的结果，可判断函数的正确性</p><p>assertArrayEquals(expecteds, actuals)    查看两个数组是否相等。<br>assertEquals(expected, actual)    查看两个对象是否相等。类似于字符串比较使用的equals()方法<br>assertNotEquals(first, second)    查看两个对象是否不相等。<br>assertNull(object)    查看对象是否为空。<br>assertNotNull(object)    查看对象是否不为空。<br>assertSame(expected, actual)    查看两个对象的引用是否相等。类似于使用“==”比较两个对象<br>assertNotSame(unexpected, actual)    查看两个对象的引用是否不相等。类似于使用“!=”比较两个对象<br>assertTrue(condition)    查看运行结果是否为true。<br>assertFalse(condition)    查看运行结果是否为false。<br>assertThat(actual, matcher)    查看实际值是否满足指定的条件<br>fail()    让测试失败</p><ul><li>测试套件(Runwith的使用)<br>使用测试套件可以同时运行多个单元测试类，有以下几个特点:<blockquote><p>   1、写一个作为测试套件的入口类，这个类里不包含其他的方法<br>  2、更改测试运行器Suite.class<br>   3、将要测试的类作为数组传入到Suite.SuiteClasses（{}）</p></blockquote></li></ul><p>代码示例如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @author gdy</span><br><span class="line"> * @date 2020-02-04</span><br><span class="line"> */</span><br><span class="line">@RunWith(Suite.class)</span><br><span class="line">@Suite.SuiteClasses(&#123;ListTest.class,MathUtilTest.class,Test1.class,Test2.class&#125;)</span><br><span class="line">public class SuiteTest &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><ul><li>参数化设置(Runwith的使用)</li></ul><p>设置参数可以使被测方法，一次运行测试多套参数，减少代码量，具体的步骤如下：</p><blockquote><p>  1.更改默认的测试运行器为RunWith(Parameterized.class)<br>    2.声明变量来存放预期值 和结果值<br>    3.声明一个返回值 为Collection的公共静态方法，并使用@Parameters进行修饰<br>    4.为测试类声明一个带有参数的公共构造函数，并在其中为之声明变量赋值</p></blockquote><p>代码示例：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">@RunWith(Parameterized.class)</span><br><span class="line">public class ParameterTest &#123;</span><br><span class="line"></span><br><span class="line">    int expect = 0;</span><br><span class="line">    int a1 = 0;</span><br><span class="line">    int a2 = 0;</span><br><span class="line">    @Parameterized.Parameters</span><br><span class="line">    public static Collection&lt;Object[]&gt; methed()&#123;</span><br><span class="line">        return Arrays.asList(new Object[][]&#123;</span><br><span class="line">                &#123;5,3,2&#125;,</span><br><span class="line">                &#123;6,3,3&#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">   public ParameterTest(int expect,int a1,int a2)&#123;</span><br><span class="line">        this.expect = expect;</span><br><span class="line">        this.a1 = a1;</span><br><span class="line">        this.a2 = a2;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void testAdd()&#123;</span><br><span class="line">        Assert.assertEquals(expect,new MathUtil().add(a1,a2));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;注解&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;
+      
     
     </summary>
     
       <category term="Android" scheme="https://NicholasYG.github.io/categories/Android/"/>
     
     
-      <category term="java" scheme="https://NicholasYG.github.io/tags/java/"/>
-    
       <category term="android" scheme="https://NicholasYG.github.io/tags/android/"/>
+    
+      <category term="java" scheme="https://NicholasYG.github.io/tags/java/"/>
     
       <category term="单元测试" scheme="https://NicholasYG.github.io/tags/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/"/>
     
@@ -59,9 +69,9 @@
       <category term="Android" scheme="https://NicholasYG.github.io/categories/Android/"/>
     
     
-      <category term="java" scheme="https://NicholasYG.github.io/tags/java/"/>
-    
       <category term="android" scheme="https://NicholasYG.github.io/tags/android/"/>
+    
+      <category term="java" scheme="https://NicholasYG.github.io/tags/java/"/>
     
   </entry>
   
@@ -86,9 +96,9 @@
       <category term="Android" scheme="https://NicholasYG.github.io/categories/Android/"/>
     
     
-      <category term="android" scheme="https://NicholasYG.github.io/tags/android/"/>
-    
       <category term="gradle" scheme="https://NicholasYG.github.io/tags/gradle/"/>
+    
+      <category term="android" scheme="https://NicholasYG.github.io/tags/android/"/>
     
   </entry>
   
@@ -113,9 +123,9 @@
       <category term="Android" scheme="https://NicholasYG.github.io/categories/Android/"/>
     
     
-      <category term="java" scheme="https://NicholasYG.github.io/tags/java/"/>
-    
       <category term="Android" scheme="https://NicholasYG.github.io/tags/Android/"/>
+    
+      <category term="java" scheme="https://NicholasYG.github.io/tags/java/"/>
     
       <category term="jacoco" scheme="https://NicholasYG.github.io/tags/jacoco/"/>
     
@@ -227,9 +237,9 @@
       <category term="java" scheme="https://NicholasYG.github.io/categories/java/"/>
     
     
-      <category term="java" scheme="https://NicholasYG.github.io/tags/java/"/>
-    
       <category term="Android" scheme="https://NicholasYG.github.io/tags/Android/"/>
+    
+      <category term="java" scheme="https://NicholasYG.github.io/tags/java/"/>
     
       <category term="nexus" scheme="https://NicholasYG.github.io/tags/nexus/"/>
     
