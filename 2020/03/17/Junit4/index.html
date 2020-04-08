@@ -96,18 +96,20 @@
 
 
 
-<meta name="description" content="注解  1234567891011/** @Test:将一个普通的方法修饰成为一个测试方法* @Test(expected=XX.class) XX可以是异常类，在运行此测试方法时，会忽略掉异常类的错误，正常运行* @Test(timeout=毫秒 ) 测试方法的超时时间，当被测试方法耗时超过timeout时长，会终止该方法的测试* @BeforeClass：它会在所有的方法运行前被执行，sta">
+<meta name="description" content="前言本篇文章是记录自己在项目开发中进行单元测试时，学习的junit4相关的一些知识，整理一下，以便以后查阅，如有不对的地方，还忘大家指正。 下文中提到的AS，是指Android studio 目录 对单元测试的理解 在android环境中创建单元测试类 注解 断言的使用 参考  对单元测试的理解在我看来单元测试，就是去验证每一小块代码的结果是否达到自己的预期。但是在验证前，要把条件准备妥当才能进行">
 <meta name="keywords" content="android,java,单元测试">
 <meta property="og:type" content="article">
 <meta property="og:title" content="用Junit4怎么在Android中做测试?">
 <meta property="og:url" content="https://NicholasYG.github.io/2020/03/17/Junit4/index.html">
 <meta property="og:site_name" content="葛布斯">
-<meta property="og:description" content="注解  1234567891011/** @Test:将一个普通的方法修饰成为一个测试方法* @Test(expected=XX.class) XX可以是异常类，在运行此测试方法时，会忽略掉异常类的错误，正常运行* @Test(timeout=毫秒 ) 测试方法的超时时间，当被测试方法耗时超过timeout时长，会终止该方法的测试* @BeforeClass：它会在所有的方法运行前被执行，sta">
+<meta property="og:description" content="前言本篇文章是记录自己在项目开发中进行单元测试时，学习的junit4相关的一些知识，整理一下，以便以后查阅，如有不对的地方，还忘大家指正。 下文中提到的AS，是指Android studio 目录 对单元测试的理解 在android环境中创建单元测试类 注解 断言的使用 参考  对单元测试的理解在我看来单元测试，就是去验证每一小块代码的结果是否达到自己的预期。但是在验证前，要把条件准备妥当才能进行">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-03-20T13:47:11.565Z">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/03/17/Junit4/.png">
+<meta property="og:updated_time" content="2020-04-02T15:14:04.217Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用Junit4怎么在Android中做测试?">
-<meta name="twitter:description" content="注解  1234567891011/** @Test:将一个普通的方法修饰成为一个测试方法* @Test(expected=XX.class) XX可以是异常类，在运行此测试方法时，会忽略掉异常类的错误，正常运行* @Test(timeout=毫秒 ) 测试方法的超时时间，当被测试方法耗时超过timeout时长，会终止该方法的测试* @BeforeClass：它会在所有的方法运行前被执行，sta">
+<meta name="twitter:description" content="前言本篇文章是记录自己在项目开发中进行单元测试时，学习的junit4相关的一些知识，整理一下，以便以后查阅，如有不对的地方，还忘大家指正。 下文中提到的AS，是指Android studio 目录 对单元测试的理解 在android环境中创建单元测试类 注解 断言的使用 参考  对单元测试的理解在我看来单元测试，就是去验证每一小块代码的结果是否达到自己的预期。但是在验证前，要把条件准备妥当才能进行">
+<meta name="twitter:image" content="https://nicholasyg.github.io/2020/03/17/Junit4/.png">
 
 
 
@@ -333,8 +335,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
+                  <a href="/categories/单元测试/" itemprop="url" rel="index">
+                    <span itemprop="name">单元测试</span>
                   </a>
                 </span>
 
@@ -364,7 +366,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  730
+                  1.2k
                 </span>
               
 
@@ -380,7 +382,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  4
                 </span>
               
             </div>
@@ -401,7 +403,27 @@
       
 
       
-        <ul>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本篇文章是记录自己在项目开发中进行单元测试时，学习的<code>junit4</code>相关的一些知识，整理一下，以便以后查阅，如有不对的地方，还忘大家指正。</p>
+<p>下文中提到的AS，是指<code>Android studio</code></p>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+<li>对单元测试的理解</li>
+<li>在android环境中创建单元测试类</li>
+<li>注解</li>
+<li>断言的使用</li>
+<li>参考</li>
+</ul>
+<h1 id="对单元测试的理解"><a href="#对单元测试的理解" class="headerlink" title="对单元测试的理解"></a>对单元测试的理解</h1><p>在我看来单元测试，就是去验证每一小块代码的结果是否达到自己的预期。但是在验证前，要把条件准备妥当才能进行验证流程。我们举一个简单例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public int getSummation(int a,int b)&#123;</span><br><span class="line">        return a + b;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>一个很简单的求和的方法，调用这个方法，假如传入的参数分别是<code>1</code>和<code>2</code>，我们预期的结果一定是<code>3</code>，如果返回的是非<code>3</code>的数字，那说明这个方法是有问题的。上面这个方法的单元测试按上面思路就这么写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">  public void getSummation() &#123;</span><br><span class="line">      //准备调用方法的条件</span><br><span class="line">      Summation summation = new Summation();</span><br><span class="line">      //调用方法</span><br><span class="line">      int result = summation.getSummation(1, 2);</span><br><span class="line">      //验证返回的结果等于3</span><br><span class="line">      assertEquals(3, result);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>项目中的其他有返回的方法也是按这种思路来进行验证，有了上面这个思路，接下来看看在<code>android</code>中如何利用<code>junit4</code>来进行单元测试。</p>
+<h1 id="在android环境中创建单元测试类"><a href="#在android环境中创建单元测试类" class="headerlink" title="在android环境中创建单元测试类"></a>在android环境中创建单元测试类</h1><p>在用<code>AS</code>创建的项目的时候，默认在<code>build.gradle</code>中已经引入了<code>junit4</code></p>
+<p><img src="/2020/03/17/Junit4/.png" alt=""></p>
+<p>所以不用再另外添加依赖，那应该怎么写呢？我们还用上面的例子来举例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class Math &#123;</span><br><span class="line"></span><br><span class="line">	public int getSummation(int a,int b)&#123;</span><br><span class="line">        return a + b;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>想要测试<code>getSummation</code>方法，在<code>AS</code>中</p>
+<p><code>getSummation</code>方法在<code>Math</code>类里面</p>
+<ul>
 <li>注解</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">* @Test:将一个普通的方法修饰成为一个测试方法</span><br><span class="line">* @Test(expected=XX.class) XX可以是异常类，在运行此测试方法时，会忽略掉异常类的错误，正常运行</span><br><span class="line">* @Test(timeout=毫秒 ) 测试方法的超时时间，当被测试方法耗时超过timeout时长，会终止该方法的测试</span><br><span class="line">* @BeforeClass：它会在所有的方法运行前被执行，static修饰</span><br><span class="line">* @AfterClass:它会在所有的方法运行结束后被执行，static修饰</span><br><span class="line">* @Before：会在每一个测试方法被运行前执行一次</span><br><span class="line">* @After：会在每一个测试方法运行后被执行一次</span><br><span class="line">* @Ignore:所修饰的测试方法会被测试运行器忽略</span><br><span class="line">* @RunWith:可以更改测试运行器 org.junit.runner.Runner （会单独说）</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
@@ -471,6 +493,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2020/04/08/http基础/" rel="prev" title="http基础学习笔记">
+                http基础学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -530,8 +556,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -550,7 +585,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -561,7 +596,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -572,7 +607,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -661,6 +696,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#目录"><span class="nav-number">2.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对单元测试的理解"><span class="nav-number">3.</span> <span class="nav-text">对单元测试的理解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在android环境中创建单元测试类"><span class="nav-number">4.</span> <span class="nav-text">在android环境中创建单元测试类</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -688,7 +739,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">10.8k</span>
+    <span title="Site words total count">12.2k</span>
   
 </div>
 
