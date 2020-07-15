@@ -83,7 +83,7 @@
 
 
 
-  <meta name="keywords" content="android,java," />
+  <meta name="keywords" content="java,android," />
 
 
 
@@ -97,7 +97,7 @@
 
 
 <meta name="description" content="前言这一篇文章用来记录平时在开发中遇到的除gradle外的其他问题，一是加强记忆，二来也方便后续再次遇到同类问题方便查找。 问题列表问题描述(Error while Launching activity)在开发过程中连接着手机联调的时候，程序已经安装在手机上，这时候因为一些原因把APP卸载了，再次点击Run重新运行程序，安装app，出现了下面的错误 123Error: Activity class">
-<meta name="keywords" content="android,java">
+<meta name="keywords" content="java,android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android开发遇到的问题整合（持续更新）">
 <meta property="og:url" content="https://NicholasYG.github.io/2020/03/11/android相关问题/index.html">
@@ -106,7 +106,10 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://nicholasyg.github.io/2020/03/11/android相关问题/run_failed.png">
 <meta property="og:image" content="https://nicholasyg.github.io/2020/03/11/android相关问题/uninstall.png">
-<meta property="og:updated_time" content="2020-03-12T11:38:50.748Z">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/03/11/android相关问题/titlebar_error.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/03/11/android相关问题/run_error.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/03/11/android相关问题/sync_gradle.png">
+<meta property="og:updated_time" content="2020-07-15T02:06:42.434Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android开发遇到的问题整合（持续更新）">
 <meta name="twitter:description" content="前言这一篇文章用来记录平时在开发中遇到的除gradle外的其他问题，一是加强记忆，二来也方便后续再次遇到同类问题方便查找。 问题列表问题描述(Error while Launching activity)在开发过程中连接着手机联调的时候，程序已经安装在手机上，这时候因为一些原因把APP卸载了，再次点击Run重新运行程序，安装app，出现了下面的错误 123Error: Activity class">
@@ -367,7 +370,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  293
+                  803
                 </span>
               
 
@@ -383,7 +386,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  3
                 </span>
               
             </div>
@@ -409,13 +412,42 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Error: Activity class &#123;com.hencoder.hencoderpracticedraw7/com.hencoder.hencoderpracticedraw7.MainActivity&#125; does not exist.</span><br><span class="line"></span><br><span class="line">Error while Launching activity</span><br></pre></td></tr></table></figure>
 <p><img src="/2020/03/11/android相关问题/run_failed.png" alt="运行出错"></p>
 <p>提示说启动界面时出错了，再往上一行说启动页（这里是MainActivity）不存在。出现这个问题的原因应该是，AS认为装载的app还存在，启动页却找不到了。但是实际上我们已经卸载了。</p>
-<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>在AS底部的工具栏中找到<code>Terminal</code>，打开，输入以下命令</p>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>在AS底部的工具栏中找到<code>Terminal</code>，打开，输入以下命令</p>
 <p><code>adb uninstall 你的包名</code></p>
 <p>我这里的包名是<code>com.hencoder.hencoderpracticedraw7</code>，所以就这样写：</p>
 <p><code>adb uninstall com.hencoder.hencoderpracticedraw7</code></p>
 <p>然后回车，出现<code>Success</code>字样</p>
 <p><img src="/2020/03/11/android相关问题/uninstall.png" alt="卸载成功"></p>
 <p>用adb的方式把app完全卸载掉，再次运行APP就可以了。</p>
+<h2 id="打开AS出现以下提示（non-Gradle…Android-Gradle）"><a href="#打开AS出现以下提示（non-Gradle…Android-Gradle）" class="headerlink" title="打开AS出现以下提示（non-Gradle…Android-Gradle）"></a>打开AS出现以下提示（non-Gradle…Android-Gradle）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Compilation is not supported for following modules: xxx. Unfortunately you </span><br><span class="line"></span><br><span class="line">can&apos;t have non-Gradle Java modules and Android-Gradle modules in one project.</span><br></pre></td></tr></table></figure>
+<p>翻译过来就是，在一个项目中不能有非渐变Java模块和Android渐变模块。具体什么是非渐变和渐变，我也不清楚[捂脸]，后续查到再补充</p>
+<h3 id="解决办法-1"><a href="#解决办法-1" class="headerlink" title="解决办法"></a>解决办法</h3><p>我遇到这个问题的原因是，在项目提交的时候，把一个<code>lib</code>的<code>iml</code>文件删除了，之后再运行自动生成了两个<code>iml</code>并且和之前的也不相同。比如我项目中的<code>lib</code>名称是<code>image</code>，一般对应生成的<code>iml</code>文件就是<code>image.iml</code>，但是我删除之后生成的却是两个，并同时报出了上面的错误。<br>然后搜了一下找到了解决办法：</p>
+<ul>
+<li>关闭当前项目</li>
+<li>关闭 <code>Android Studio</code></li>
+<li>找到项目位置，删除项目中的<code>.idea</code>文件</li>
+<li>删除项目中所有的<code>.iml</code>文件（每个lib下iml都要删，包括app中的）</li>
+<li>重新打开<code>Android Studio</code></li>
+</ul>
+<p><a href="https://stackoverflow.com/questions/30142056/error-unfortunately-you-cant-have-non-gradle-java-modules-and-android-gradle" target="_blank" rel="noopener">stack overflow解决办法</a></p>
+<p>收工</p>
+<h2 id="“Default-activity-not-found”"><a href="#“Default-activity-not-found”" class="headerlink" title="“Default activity not found”"></a>“Default activity not found”</h2><p>在我们运行项目的时候，有时候会遇到这个问题：</p>
+<p><img src="/2020/03/11/android相关问题/titlebar_error.png" alt="titlebar error"></p>
+<p><code>app</code>上有一个小红叉，点击<code>run app</code>，又会出现下面的错误</p>
+<p><img src="/2020/03/11/android相关问题/run_error.png" alt="run_error"></p>
+<h3 id="解决办法-2"><a href="#解决办法-2" class="headerlink" title="解决办法"></a>解决办法</h3><h4 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h4><p>确认在<code>app文件夹下的AndroidManifest.xml</code>文件中已经添加如下代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;activity</span><br><span class="line">        android:name=&quot;com.your.package.name.YourActivity&quot;</span><br><span class="line">        android:label=&quot;@string/app_name&quot;&gt;</span><br><span class="line">        &lt;intent-filter&gt;</span><br><span class="line">            &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;</span><br><span class="line">            &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;</span><br><span class="line">        &lt;/intent-filter&gt;</span><br><span class="line">&lt;/activity&gt;</span><br></pre></td></tr></table></figure>
+<p>如果添加以后还是不行，那看方法二</p>
+<h4 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h4><p>点击工具栏的同步按钮</p>
+<p><img src="/2020/03/11/android相关问题/sync_gradle.png" alt="sync"></p>
+<p>同步以后，还是不行的话，就接着往下看</p>
+<h4 id="方法三："><a href="#方法三：" class="headerlink" title="方法三："></a>方法三：</h4><p>在<code>Android Studio</code>中选择</p>
+<p><code>File -&gt; Invalidate Caches / Restart...</code></p>
+<p>之后在弹出的提示框上选择<code>Invalidate and Restart</code>按钮</p>
+<h4 id="方法四："><a href="#方法四：" class="headerlink" title="方法四："></a>方法四：</h4><p>最后选择在<code>Android Studio</code>中选择</p>
+<p><code>Build -&gt; Clean Project</code></p>
+<p>以上四种方法都执行了，这个问题应该就解决。</p>
+<p><a href="https://medium.com/@ranjithexpertisers/default-activity-not-found-in-android-studio-f260a00edd4a" target="_blank" rel="noopener">Medium解决办法</a></p>
 
       
     </div>
@@ -433,9 +465,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/android/" rel="tag"><i class="fa fa-tag"></i> android</a>
-          
             <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          
+            <a href="/tags/android/" rel="tag"><i class="fa fa-tag"></i> android</a>
           
         </div>
       
@@ -550,7 +582,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -572,7 +604,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -670,7 +702,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题列表"><span class="nav-number">2.</span> <span class="nav-text">问题列表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题描述-Error-while-Launching-activity"><span class="nav-number">2.1.</span> <span class="nav-text">问题描述(Error while Launching activity)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决办法"><span class="nav-number">2.2.</span> <span class="nav-text">解决办法</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题列表"><span class="nav-number">2.</span> <span class="nav-text">问题列表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题描述-Error-while-Launching-activity"><span class="nav-number">2.1.</span> <span class="nav-text">问题描述(Error while Launching activity)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决办法"><span class="nav-number">2.1.1.</span> <span class="nav-text">解决办法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#打开AS出现以下提示（non-Gradle…Android-Gradle）"><span class="nav-number">2.2.</span> <span class="nav-text">打开AS出现以下提示（non-Gradle…Android-Gradle）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决办法-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">解决办法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#“Default-activity-not-found”"><span class="nav-number">2.3.</span> <span class="nav-text">“Default activity not found”</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决办法-2"><span class="nav-number">2.3.1.</span> <span class="nav-text">解决办法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方法一："><span class="nav-number">2.3.1.1.</span> <span class="nav-text">方法一：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法二："><span class="nav-number">2.3.1.2.</span> <span class="nav-text">方法二：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法三："><span class="nav-number">2.3.1.3.</span> <span class="nav-text">方法三：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法四："><span class="nav-number">2.3.1.4.</span> <span class="nav-text">方法四：</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -704,7 +736,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">12.2k</span>
+    <span title="Site words total count">14.7k</span>
   
 </div>
 
