@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+      
+    
+    
+      
+    
+  <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+  <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-flash.min.css" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="gradle,android,jenkins," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="葛布斯" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言搭建流程如下 Jenkins的下载和运行 Android环境配置 创建Android项目及项目build配置 构建项目 结束语  环境都是在Mac上配置的，Window上的配置还没试，有时间再研究啦。 Jenkins的下载和运行Jenkins下载Jenkins它是基于Java的独立程序，所以呢，你电脑上如果配置了java环境，理论上都是可以运行,引用官网上的话：  Jenkins 是一个基于">
+<meta name="keywords" content="gradle,android,jenkins">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用Jenkins进行Android自动化构建">
+<meta property="og:url" content="https://NicholasYG.github.io/2020/01/09/Jenkins自动化打包/index.html">
+<meta property="og:site_name" content="葛布斯">
+<meta property="og:description" content="前言搭建流程如下 Jenkins的下载和运行 Android环境配置 创建Android项目及项目build配置 构建项目 结束语  环境都是在Mac上配置的，Window上的配置还没试，有时间再研究啦。 Jenkins的下载和运行Jenkins下载Jenkins它是基于Java的独立程序，所以呢，你电脑上如果配置了java环境，理论上都是可以运行,引用官网上的话：  Jenkins 是一个基于">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/01/09/Jenkins自动化打包/jenkins_download_war.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/01/09/Jenkins自动化打包/jenkins_deaful_pwd.jpg">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/01/09/Jenkins自动化打包/jenkins_full_pwd.jpg">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/01/09/Jenkins自动化打包/jenkins_pic1.jpg">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/01/09/Jenkins自动化打包/jenkins_pic2.jpg">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/01/09/Jenkins自动化打包/jenkins_pic2.jpg">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/01/09/Jenkins自动化打包/jenkins_android_configure.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/01/09/Jenkins自动化打包/jenkins_java_jdk.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/01/09/Jenkins自动化打包/jenkins_bash_profile.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/01/09/Jenkins自动化打包/jenkins_java_home.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/01/09/Jenkins自动化打包/jenkins_gradle.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/01/09/Jenkins自动化打包/jenkins_android_sdk.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/01/09/Jenkins自动化打包/jenkins_android_sdk_manager.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/01/09/Jenkins自动化打包/jenkins_android_sdk_path.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/01/09/Jenkins自动化打包/creat_android_project.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/01/09/Jenkins自动化打包/general_with_project.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/01/09/Jenkins自动化打包/scm_with_project.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/01/09/Jenkins自动化打包/add_account_with_scm.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/01/09/Jenkins自动化打包/build_with_project.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/01/09/Jenkins自动化打包/select_version_with_build.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/01/09/Jenkins自动化打包/add_tasks_with_build.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/01/09/Jenkins自动化打包/project_with_build_start.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/01/09/Jenkins自动化打包/project_with_build_list.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/01/09/Jenkins自动化打包/project_with_build_log.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/01/09/Jenkins自动化打包/project_with_build_success.png">
+<meta property="og:image" content="https://nicholasyg.github.io/2020/01/09/Jenkins自动化打包/project_with_workspace.png">
+<meta property="og:updated_time" content="2020-09-15T06:17:34.434Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="利用Jenkins进行Android自动化构建">
+<meta name="twitter:description" content="前言搭建流程如下 Jenkins的下载和运行 Android环境配置 创建Android项目及项目build配置 构建项目 结束语  环境都是在Mac上配置的，Window上的配置还没试，有时间再研究啦。 Jenkins的下载和运行Jenkins下载Jenkins它是基于Java的独立程序，所以呢，你电脑上如果配置了java环境，理论上都是可以运行,引用官网上的话：  Jenkins 是一个基于">
+<meta name="twitter:image" content="https://nicholasyg.github.io/2020/01/09/Jenkins自动化打包/jenkins_download_war.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://NicholasYG.github.io/2020/01/09/Jenkins自动化打包/"/>
+
+
+
+
+
+  <title>利用Jenkins进行Android自动化构建 | 葛布斯</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/NicholasYG" class="github-corner" aria-label="View source on Github"><svg width="90" height="90" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">葛布斯</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://NicholasYG.github.io/2020/01/09/Jenkins自动化打包/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="葛布斯">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/cat.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="葛布斯">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">利用Jenkins进行Android自动化构建</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-09T15:21:40+08:00">
+                2020-01-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.6k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="搭建流程如下"><a href="#搭建流程如下" class="headerlink" title="搭建流程如下"></a>搭建流程如下</h3><ul>
+<li>Jenkins的下载和运行</li>
+<li>Android环境配置</li>
+<li>创建Android项目及项目build配置</li>
+<li>构建项目</li>
+<li>结束语</li>
+</ul>
+<p>环境都是在Mac上配置的，Window上的配置还没试，有时间再研究啦。</p>
+<h2 id="Jenkins的下载和运行"><a href="#Jenkins的下载和运行" class="headerlink" title="Jenkins的下载和运行"></a>Jenkins的下载和运行</h2><h3 id="Jenkins下载"><a href="#Jenkins下载" class="headerlink" title="Jenkins下载"></a>Jenkins下载</h3><p>Jenkins它是基于Java的独立程序，所以呢，你电脑上如果配置了java环境，理论上都是可以运行,引用官网上的话：</p>
+<blockquote>
+<p>Jenkins 是一个基于 Java 的独立程序，可以立即运行，包含 Windows、Mac OS X 和其他类 Unix 操作系统。</p>
+</blockquote>
+<p>Jenkins的安装方式有好几种；各个系统对应的安装包、通过Docker镜像、<code>war</code>包等。对比了一下感觉<code>war</code>形式的好像便捷一些，果断用这种方式（主要还是懒）。先去下载Jenkins的<code>war</code>包。<br>在<a href="https://jenkins.io/zh/download/" target="_blank" rel="noopener">Jenkins官网</a>，有各种安装方式的包,因为我们要用war包的形式嘛，所以下载它，下图红框圈的就是：</p>
+<p><img src="/2020/01/09/Jenkins自动化打包/jenkins_download_war.png" alt="下载截图"></p>
+<p>不知道什么原因，这个<code>war</code>它也不大（60M左右），但是下载的奇慢，得下载数小时，差评!<br>但是老铁们也不用着急，我把下载下来的<code>war</code>包上传到gitHub上了，想要先行一步的来这下吧，童叟无欺。<a href="https://jenkins.io/zh/download/" target="_blank" rel="noopener">gitHub下载</a></p>
+<p>但是要说明一下我放置的这个版本是2.213下面<code>每周更新版</code>的最新的<code>war</code>包，可能现在你看到的官网已经有了新的版本，所以介意的话，就在官网上下载最新的。如果是想练练手应该问题不大，下就完事。</p>
+<h3 id="运行Jenkins"><a href="#运行Jenkins" class="headerlink" title="运行Jenkins"></a>运行Jenkins</h3><p>下载完以后，就可以愉快的运行了，下载下来的这个包你随便放置，执行的时候你能找到就行。接着我们打开终端，开始运行：</p>
+<p>输入<code>java -jar jenkins.war</code></p>
+<p>注意这行命令得是在<code>jenkins.war</code>当前的目录下运行,不然找不到。</p>
+<p>在运行过程中，你可能会看到这样一段话：</p>
+<p><img src="/2020/01/09/Jenkins自动化打包/jenkins_deaful_pwd.jpg" alt="jenkins初始密码"></p>
+<p>这个密码你现在可以先粘贴出来后面要用，当然，如果你觉得不方便，也可以在用到的时候再去找，后面还会有提示，等他默默的运行起来之后，我们就可以开始浏览jenkins了。</p>
+<p>打开浏览器，在地址栏输入<code>localhost:8080</code>就能开始我们的<code>jenkins</code>之旅了。如果一切正常的话，首先看到的会是下面这个界面 解锁jenkins：</p>
+<p><img src="/2020/01/09/Jenkins自动化打包/jenkins_full_pwd.jpg" alt="解锁jenkins"></p>
+<p>上面让输入管理员密码，就是上面说的那一串密码，粘出来贴上去，如果找不到，上面提供了查看路径（那一行红字）进去看再粘贴出来就行了。</p>
+<p>点<code>continue</code>，等一会儿，就会出来下一个界面，让选择安装插件，我们是新手，就选第一个推荐安装，放个图片：</p>
+<p><img src="/2020/01/09/Jenkins自动化打包/jenkins_pic1.jpg" alt="jenkins安装插件选择界面"></p>
+<p>接着就是漫长的等待，会装不少插件，装插件的界面：</p>
+<p><img src="/2020/01/09/Jenkins自动化打包/jenkins_pic2.jpg" alt="jenkins安装插件"></p>
+<p>等它装完后，会跳转到一个填写账号密码的界面，这里填的账号就是以后我们登录的账号了，给出图片：</p>
+<p><img src="/2020/01/09/Jenkins自动化打包/jenkins_pic2.jpg" alt="jenkins填写用户信息"></p>
+<p>按照提示的信息，每一项都填写好，保存就好了，成功后会有页面提示。至此jenkins的安装工作告一段落，接下来就可以配置一些环境和创建项目了。</p>
+<h2 id="配置Android编译环境"><a href="#配置Android编译环境" class="headerlink" title="配置Android编译环境"></a>配置Android编译环境</h2><p>进入到jenkins界面后，我们先不急着创建项目，先去配置环境，在界面的左侧导航栏，找到<code>Manager Jenkins</code>接着在列表第四项找到<code>Global Tool Configuration</code>，点进去可以配置<code>Java JDK</code>和<code>Gradle</code>的环境,如下图:</p>
+<p><img src="/2020/01/09/Jenkins自动化打包/jenkins_android_configure.png" alt="jenkins填写用户信息"></p>
+<h3 id="配置java-JDK："><a href="#配置java-JDK：" class="headerlink" title="配置java JDK："></a>配置java JDK：</h3><p><img src="/2020/01/09/Jenkins自动化打包/jenkins_java_jdk.png" alt="jenkins填写用户信息"></p>
+<ul>
+<li>1、名称：随意写，没有特殊规定</li>
+<li>2、路径：本地java JDK的路径</li>
+</ul>
+<p>这里说一下这个JDK路径，macOS本身带有java的环境，可以直接使用，可能不是最新的包，你可以选择升级，我们这里要填写的就是这个路径。如果你本地配置过java的环境变量（配置环境变量这里就不说了，网上很多，搜一哈），打开<code>.bash_profile</code>文件，找到JAVA_HOME对应的路径，复制出来放在这里就好。</p>
+<p><code>打开命令 open ~/.bash_profile</code></p>
+<p>你的配置信息可能是这样的，圈住的就是我们需要的路径：</p>
+<p><img src="/2020/01/09/Jenkins自动化打包/jenkins_bash_profile.png" alt="bash_profile"></p>
+<p>如果本地的JDK 不知道在哪个位置，就使用下面的方式查看：</p>
+<p>终端输入<code>/usr/libexec/java_home -V</code>,你会看到下面的信息：</p>
+<p><img src="/2020/01/09/Jenkins自动化打包/jenkins_java_home.png" alt="java_home"></p>
+<p>从箭头指向的位置开始到结束，这个就是我们要配置的路径，如果你安装了多个JDK，会显示多个的信息，使用任何一个都可以，看你选择。</p>
+<h3 id="配置Gradle："><a href="#配置Gradle：" class="headerlink" title="配置Gradle："></a>配置Gradle：</h3><p><img src="/2020/01/09/Jenkins自动化打包/jenkins_gradle.png" alt="jenkins填写用户信息"></p>
+<ul>
+<li>1、名称：随意写，没有特殊规定</li>
+<li>2、路径：gradle的路径</li>
+</ul>
+<h4 id="查找gradle路径"><a href="#查找gradle路径" class="headerlink" title="查找gradle路径"></a>查找gradle路径</h4><ul>
+<li>方法一</li>
+</ul>
+<p><code>gradle</code>的位置在Android studio3.5之前，可以按照</p>
+<p><code>应用程序 --&gt; android studio --&gt; 右键 --&gt; 显示包内容 --&gt; Contents --&gt; gradle</code></p>
+<p>找到<code>gradle</code>对应的位置，然后选择想要使用的gradle的版本，路径粘贴可以按以下操作：</p>
+<p><code>选中文件--&gt;右键--&gt;显示简介--&gt;位置</code></p>
+<p>将位置处所对应的路径粘贴出来；或者你可以把选择的<code>gradle</code>版本文件夹拖拽到终端里面，然后复制出全路径，放到我们图中<code>2</code>的位置。</p>
+<ul>
+<li>方法二</li>
+</ul>
+<p>另外一种方式是，打开本地的<code>.gradle</code>，从里面获取想要构建使用的gradle版本。由于<code>.gradle</code>文件默认是隐藏的，所以我们操作前需要先显示出隐藏文件。操作方式如下:</p>
+<p>显示隐藏文件快捷键：<code>command⌘ + shift⇧ + .</code>(此操作在<code>用户</code>的的根目录下进行)</p>
+<p>找到<code>.gradle</code>文件后，按如下操作： </p>
+<p><code>.gradle --&gt; wrapper --&gt; dists --&gt; 你的gradle列表</code></p>
+<p>按照上面的操作一层一层的进入到你的<code>gradle</code>列表里面，选择你中意的版本，按照方法一种的两种方法，复制出路径，放在图中<code>2</code>的位置。</p>
+<p>到这里我们的<code>gradle</code>路径也配置好了，点击<code>sava</code>保存就行了。</p>
+<h3 id="配置Android-SDK"><a href="#配置Android-SDK" class="headerlink" title="配置Android SDK"></a>配置Android SDK</h3><p>配置Android SDK和上面两个配置不在同一个界面。回退到<code>jenkins</code>的设置界面，点击<code>Configure System</code>，进入设置界面，找到<code>Global properties</code>属性，勾选<code>Environment variables</code>，填写上名称和对应的<code>Android SDK</code>的路径：</p>
+<p><img src="/2020/01/09/Jenkins自动化打包/jenkins_android_sdk.png" alt=""></p>
+<ul>
+<li>1、勾选<code>Environment variables</code>属性</li>
+<li>2、填写名字</li>
+<li>3、填写SDK的路径</li>
+</ul>
+<p>SDK的路径也很好找，我们打开<code>Android studio</code>编辑器，在顶部的工具栏，找到<code>SDK Manager</code>按钮</p>
+<p><img src="/2020/01/09/Jenkins自动化打包/jenkins_android_sdk_manager.png" alt=""></p>
+<p>点击，就会显示Android所有的SDK版本，里面有些我们下载了，有的没下载，但是我们关注的不是这个，关注的是红框圈住的这个路径，复制出来，放在<code>2</code>的位置，如下：</p>
+<p><img src="/2020/01/09/Jenkins自动化打包/jenkins_android_sdk_path.png" alt=""></p>
+<p>到这里我们Android的运行环境差不多就配置好了，接下来就可以创建项目了。</p>
+<h2 id="创建Android项目及项目build配置"><a href="#创建Android项目及项目build配置" class="headerlink" title="创建Android项目及项目build配置"></a>创建Android项目及项目build配置</h2><h3 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h3><p>准备工作都做完了，接下来开始创建项目，回到主页面。按图所示：</p>
+<p><img src="/2020/01/09/Jenkins自动化打包/creat_android_project.png" alt=""></p>
+<p>在项目上只需要写上名称即可，选择Freestyle project，保存。项目就创建完成了。接着进入到我们创建好的项目中，进行各项的配置</p>
+<h3 id="项目配置"><a href="#项目配置" class="headerlink" title="项目配置"></a>项目配置</h3><h4 id="General（常规配置）"><a href="#General（常规配置）" class="headerlink" title="General（常规配置）"></a>General（常规配置）</h4><p>进入到项目看到的第一项是general选项，看图：</p>
+<p><img src="/2020/01/09/Jenkins自动化打包/general_with_project.png" alt=""></p>
+<p>我们目前先把项目配置好，能跑起来；后面章节再说参数化构建相关的东西。这里只填写一下描述信息。</p>
+<h4 id="SCM（Source-Code-Management）"><a href="#SCM（Source-Code-Management）" class="headerlink" title="SCM（Source Code Management）"></a>SCM（Source Code Management）</h4><p>接着是SCM模块，先上图：</p>
+<p><img src="/2020/01/09/Jenkins自动化打包/scm_with_project.png" alt=""></p>
+<p>这里主要设置构建项目的仓库地址，可以选择svn和git两种，我们这里以svn为例；分别填写svn的项目地址 ，和选择svn账号；默认svn账号的位置是空，需要点击Add按钮添加：</p>
+<p><img src="/2020/01/09/Jenkins自动化打包/add_account_with_scm.png" alt=""></p>
+<p>分别添加上你的账号和密码。保存之后就可以在前面界面上选中了。<code>地址</code>、<code>svn账号</code>都填写完，其他的选项保持默认就好，不需要另外操作。</p>
+<p>再接着往下的两个标签<code>Build Triggers</code>,<code>Build Environment</code>暂时不做其他填写，保持默认就好。</p>
+<h4 id="Build"><a href="#Build" class="headerlink" title="Build"></a>Build</h4><p>这一步是指定Gradle版本用来构建项目的，先点击<code>Add build step</code>按钮添加：</p>
+<p><img src="/2020/01/09/Jenkins自动化打包/build_with_project.png" alt=""></p>
+<p>选择<code>Invoke Gradle script</code>选项，接着会看到下面要填写的选项</p>
+<p><img src="/2020/01/09/Jenkins自动化打包/select_version_with_build.png" alt=""></p>
+<p><code>Gradle Version</code>选项就是我们刚才在上面配置的gradle，选择你刚才命名的gradle名称，接着在<br><code>Tasks</code>选项中，写上我们想要执行的gradle命令；这里需要注意一下，不要勾选<code>Use Gradle Wrapper</code>虽然<code>Tasks</code>是在它下方，但不属于它里面的一个选项：</p>
+<p><img src="/2020/01/09/Jenkins自动化打包/add_tasks_with_build.png" alt=""></p>
+<p><code>Tasks</code>中的命令就相当于我们在项目的终端输入的命令一样；</p>
+<p>比如想要构建项目的<code>debug</code>版本：</p>
+<p><code>assembleDebug</code></p>
+<p>正式版：</p>
+<p><code>assembleRelease</code></p>
+<p>当然如果你在项目中配置了<code>Flavors</code>多渠道打包，在这里也是一样可以在<code>Tasks</code>中编辑。比如我配置了小米和华为渠道，在<code>Flavors</code>中的命名分别是<code>xiaomi</code>和<code>huawei</code>，那么在<code>Tasks</code>中命名就是：</p>
+<p><code>assembleXiaomiRelease</code>和<code>assembleHuaweiRelease</code>。</p>
+<p>关于<code>Flavors</code>配置多渠道相关问题这里不多赘述，有兴趣可以参考下面这篇文章：</p>
+<p><a href="https://www.yuque.com/docs/share/f79dbc57-887a-47e9-9f4e-cadb0d4e6627?#" target="_blank" rel="noopener">Gradle productFlavors多版本打包</a></p>
+<p>到这里我们的项目配置就完成了，点击保存按钮，接着就是最后一步构建了。</p>
+<h2 id="构建项目"><a href="#构建项目" class="headerlink" title="构建项目"></a>构建项目</h2><p>保存完成后，跳转到项目的菜单页面，点击立即构建按钮，项目就开始运行啦：</p>
+<p><img src="/2020/01/09/Jenkins自动化打包/project_with_build_start.png" alt=""></p>
+<p>在构建的过程中，如果想看控制台日志，可以选择正在构建的项目，每次构建的版本都在这里罗列。</p>
+<p><img src="/2020/01/09/Jenkins自动化打包/project_with_build_list.png" alt=""></p>
+<p>点击后面的小三角有下拉列表，选择<code>Console Output</code>点进去，就是项目的构建日志了。</p>
+<p><img src="/2020/01/09/Jenkins自动化打包/project_with_build_log.png" alt=""></p>
+<p>等待项目构建完成，如果看到下面熟悉的信息，那么我们的项目就构建成功了。</p>
+<p><img src="/2020/01/09/Jenkins自动化打包/project_with_build_success.png" alt=""></p>
+<p>如果项目项目未构建成功，log中也会给出对应的提示，需要我们按需解决。</p>
+<h3 id="工作空间"><a href="#工作空间" class="headerlink" title="工作空间"></a>工作空间</h3><p>构建成功，打的包在<code>Work space</code>列表中。</p>
+<p><img src="/2020/01/09/Jenkins自动化打包/project_with_workspace.png" alt=""></p>
+<p>点开后可以看到，和我们的Android studio中的目录结构是一样的，构建成功的文件也在build文件中，这里不再展开叙述。</p>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>以上就是Jenkins下载安装、环境配置和创建Android项目的过程，介绍了基本的构建方式，后续有时间会介绍如何进行参数化构建，让jenkins有更多的玩法。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/gradle/" rel="tag"><i class="fa fa-tag"></i> gradle</a>
+          
+            <a href="/tags/android/" rel="tag"><i class="fa fa-tag"></i> android</a>
+          
+            <a href="/tags/jenkins/" rel="tag"><i class="fa fa-tag"></i> jenkins</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/09/Java/" rel="next" title="Java注解的基本用法">
+                <i class="fa fa-chevron-left"></i> Java注解的基本用法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/21/Chrome插件/" rel="prev" title="Mac上Chrome插件安装及打包方法">
+                Mac上Chrome插件安装及打包方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  <div>
+    
+      <div>
+    
+        <div style="text-align:center;color: #555;font-size:14px;">-------------The End-------------</div>
+    
+</div>
+    
+  </div>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/cat.jpg"
+                alt="葛布斯" />
+            
+              <p class="site-author-name" itemprop="name">葛布斯</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/NicholasYG" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mail.google.com" target="_blank" title="邮箱">
+                      
+                        <i class="fa fa-fw fa-globe"></i>邮箱</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.kotlincn.net/" target="_blank" title="Kotlin">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Kotlin</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://flutter-io.cn/#section-codelabs" target="_blank" title="Flutter">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Flutter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://gank.io/" title="干货集中营" target="_blank">干货集中营</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://color-themes.com/?view=index" title="Color Theme" target="_blank">Color Theme</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.androiddevtools.cn/" title="AndroidDevTools" target="_blank">AndroidDevTools</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://e.xitu.io/" title="掘金酱" target="_blank">掘金酱</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://wanandroid.com/" title="玩Android" target="_blank">玩Android</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建流程如下"><span class="nav-number">1.1.</span> <span class="nav-text">搭建流程如下</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jenkins的下载和运行"><span class="nav-number">2.</span> <span class="nav-text">Jenkins的下载和运行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Jenkins下载"><span class="nav-number">2.1.</span> <span class="nav-text">Jenkins下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行Jenkins"><span class="nav-number">2.2.</span> <span class="nav-text">运行Jenkins</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置Android编译环境"><span class="nav-number">3.</span> <span class="nav-text">配置Android编译环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置java-JDK："><span class="nav-number">3.1.</span> <span class="nav-text">配置java JDK：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Gradle："><span class="nav-number">3.2.</span> <span class="nav-text">配置Gradle：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查找gradle路径"><span class="nav-number">3.2.1.</span> <span class="nav-text">查找gradle路径</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Android-SDK"><span class="nav-number">3.3.</span> <span class="nav-text">配置Android SDK</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建Android项目及项目build配置"><span class="nav-number">4.</span> <span class="nav-text">创建Android项目及项目build配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建项目"><span class="nav-number">4.1.</span> <span class="nav-text">创建项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目配置"><span class="nav-number">4.2.</span> <span class="nav-text">项目配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#General（常规配置）"><span class="nav-number">4.2.1.</span> <span class="nav-text">General（常规配置）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SCM（Source-Code-Management）"><span class="nav-number">4.2.2.</span> <span class="nav-text">SCM（Source Code Management）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Build"><span class="nav-number">4.2.3.</span> <span class="nav-text">Build</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建项目"><span class="nav-number">5.</span> <span class="nav-text">构建项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#工作空间"><span class="nav-number">5.1.</span> <span class="nav-text">工作空间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结束语"><span class="nav-number">6.</span> <span class="nav-text">结束语</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">葛布斯</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">15.4k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+<!--
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+-->
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":true,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":100,"height":200,"bottom":-100},"mobile":{"show":false}});</script>
+</body>
+</html>
+<script type="text/javascript" src="/js/src/love.js"></script>
